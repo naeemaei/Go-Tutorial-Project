@@ -18,3 +18,5 @@ func main() {
 
 	hello()
 }
+
+// How run codes
