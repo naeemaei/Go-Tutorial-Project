@@ -1,3 +1,4 @@
+val.go
 package main
 
 import "fmt"
@@ -14,10 +15,13 @@ func main() {
 
 	var enabled bool // false
 
+	appName := "Hello Persia"
+
 	fmt.Println(counter)
 	fmt.Println(message)
 	fmt.Println(factor)
 	fmt.Println(enabled)
+	fmt.Println(appName)
 
 	fmt.Println("7/2 =", 7/2)
 	fmt.Println("7/2.0 =", 7/2.0)
