@@ -1,0 +1,1 @@
+4 types of loops : https://yourbasic.org/golang/for-loop/
