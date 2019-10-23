@@ -8,7 +8,6 @@ func main() {
 
 	// Declare local const in golang, when we have two global and local const with same name, global const was ignored.
 	const uploadFolder string = "Persepolis"
-
 	const num = 10 - 1
 
 	//Sample integer
@@ -22,11 +21,17 @@ func main() {
 	var factor float32
 	factor = 4.2
 
+	// Default value false
+	var enabled bool
+
 	// Define two variables
 	var firstName, lastName string = "hamed", "naeemaei"
 
-	// Default value false
-	var enabled bool
+	// Multiple Declarations
+	var (
+		id                    int    = 1
+		cityName, countryname string = "Chalus", "Iran"
+	)
 
 	//Other way to declare variable
 	appName := "Hello Persia"
@@ -38,6 +43,7 @@ func main() {
 	fmt.Println(enabled)
 	fmt.Println(appName)
 	fmt.Println(firstName, lastName)
+	fmt.Println(id, cityName, countryname)
 
 	// calculation in print
 	fmt.Println("7/2 =", 7/2)
