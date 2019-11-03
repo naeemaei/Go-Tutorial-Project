@@ -21,6 +21,9 @@ func main() {
 	var factor float32
 	factor = 4.2
 
+	//Other way to declare variable
+	appName := "Hello Iran"
+
 	// Default value false
 	var enabled bool
 
@@ -32,9 +35,6 @@ func main() {
 		id                    int    = 1
 		cityName, countryname string = "Chalus", "Iran"
 	)
-
-	//Other way to declare variable
-	appName := "Hello Persia"
 
 	// print variable
 	fmt.Println(counter)
