@@ -24,9 +24,16 @@ func main() {
 
 		// Find and print image URLs
 		document.Find(".o-listView__itemInfo").Each(func(index int, element *goquery.Selection) {
-			class, _ := element.Attr("class")
+			//class, _ := element.Attr("class")
+			var company = element.Find(".c-icon--construction").Parent().Find("span").Text()
+			fmt.Println(company)
 
-			fmt.Println(class, element.Text())
+			var place = element.Find(".c-icon--place").Parent().Find("span").Text()
+			fmt.Println(place)
+
+			var jobTitle = element.Find(".c-jobListView__titleLink").Text()
+			fmt.Println(jobTitle)
+			//fmt.Println(class, element.Text())
 		})
 	}
 
