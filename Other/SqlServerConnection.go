@@ -16,7 +16,7 @@ func main() {
 	var (
 		sqlversion string
 	)
-	rows, err := condb.Query("select @@version")
+	rows, err := condb.Query("select @@servername")
 	if err != nil {
 		log.Fatal(err)
 	}
