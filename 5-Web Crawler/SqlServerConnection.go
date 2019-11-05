@@ -32,9 +32,20 @@ func TestConnection() {
 	defer condb.Close()
 }
 
-func CreateRecord(db *sql.DB, title string, company string, place string) (int64, error) {
+func CreateMasterRecord(db *sql.DB, title string, company string, place string) (int64, error) {
 	tsql := fmt.Sprintf("INSERT INTO dbo.Jobs (Title,Company,Place) VALUES (N'%s',N'%s',N'%s');",
 		title, company, place)
+	result, err := db.Exec(tsql)
+	if err != nil {
+		fmt.Println("Error inserting new row: " + err.Error())
+		return -1, err
+	}
+	return result.LastInsertId()
+}
+
+func CreateDetailRecord(db *sql.DB, jobId int, key string, value string) (int64, error) {
+	tsql := fmt.Sprintf("INSERT INTO dbo.JobDetail (JobId,[key],[value]) VALUES (N'%s',N'%s',N'%s');",
+		jobId, key, value)
 	result, err := db.Exec(tsql)
 	if err != nil {
 		fmt.Println("Error inserting new row: " + err.Error())

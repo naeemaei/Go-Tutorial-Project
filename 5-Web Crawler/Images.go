@@ -38,26 +38,32 @@ func main() {
 		document.Find(".o-listView__itemInfo").Each(func(index int, element *goquery.Selection) {
 
 			// Get company name
-			//var company = element.Find(".c-icon--construction").Parent().Find("span").Text()
-			//fmt.Println(company)
+			var company = element.Find(".c-icon--construction").Parent().Find("span").Text()
+			fmt.Println(company)
 
 			// Get city name
-			//var place = element.Find(".c-icon--place").Parent().Find("span").Text()
-			//fmt.Println(place)
+			var place = element.Find(".c-icon--place").Parent().Find("span").Text()
+			fmt.Println(place)
 
 			// Get job title name
-			//var jobTitle = element.Find(".c-jobListView__titleLink").Text()
+			var jobTitle = element.Find(".c-jobListView__titleLink").Text()
 			var jobLink, _ = element.Find(".c-jobListView__titleLink").Attr("href")
 			// fmt.Println(jobLink)
 
 			// Go to detail page
-			var newDocument = MakeHttpRequest(jobLink, 0)
-			var contractType = newDocument.Find(".c-infoBox__itemTitle").Text()
-			fmt.Println(contractType)
-
 			// Save in db
-			// condb := GetConnection()
-			// CreateRecord(condb, jobTitle, company, place)
+			condb := GetConnection()
+			var jobId, _ = CreateMasterRecord(condb, jobTitle, company, place)
+
+			var newDocument = MakeHttpRequest(jobLink, 0)
+			newDocument.Find(".c-infoBox__item").Each(func(index int, element *goquery.Selection) {
+				fmt.Println(element.Find("h4").Text())
+				fmt.Println(element.Find("span").Text())
+				fmt.Println(newDocument.Find(".s-jobDesc ").Text())
+				CreateDetailRecord(condb, int(jobId), element.Find("h4").Text(), element.Find("span").Text())
+			})
+
+			CreateDetailRecord(condb, int(jobId), "Description", newDocument.Find(".s-jobDesc ").Text())
 
 			nextPage++
 			document = MakeHttpRequest(baseURL+jobPage+strings.Join(params[:], "&"), nextPage)

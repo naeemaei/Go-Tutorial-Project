@@ -1,0 +1,52 @@
+
+
+USE [JobDb]
+GO
+/****** Object:  Table [dbo].[JobDetail]    Script Date: 11/5/2019 7:18:57 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[JobDetail]
+(
+    [JobId] [int] NOT NULL,
+    [Key] [nvarchar](200) NULL,
+    [Value] [nvarchar](200) NULL,
+    CONSTRAINT [PK_JobDetail] PRIMARY KEY CLUSTERED 
+(
+	[JobId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Jobs]    Script Date: 11/5/2019 7:18:57 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Jobs]
+(
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [Title] [nvarchar](300) NULL,
+    [Company] [nvarchar](300) NULL,
+    [Place] [nvarchar](300) NULL,
+    CONSTRAINT [PK_Jobs] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TestTable]    Script Date: 11/5/2019 7:18:57 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TestTable]
+(
+    [Id] [int] NOT NULL,
+    [Name] [nvarchar](50) NULL,
+    CONSTRAINT [PK_TestTable] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
