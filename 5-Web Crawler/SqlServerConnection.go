@@ -33,29 +33,25 @@ func TestConnection() {
 }
 
 func CreateMasterRecord(db *sql.DB, title string, company string, place string) (int64, error) {
-	tsql := fmt.Sprintf("INSERT INTO dbo.Jobs (Title,Company,Place) VALUES (N'%s',N'%s',N'%s');",
+	tsql := fmt.Sprintf("INSERT INTO dbo.Jobs (Title,Company,Place) VALUES (N'%s',N'%s',N'%s') SELECT SCOPE_IDENTITY();",
 		title, company, place)
-	result, err := db.Exec(tsql)
-	if err != nil {
-		fmt.Println("Error inserting new row: " + err.Error())
-		return -1, err
-	}
-	return result.LastInsertId()
+	var id int64
+	err := db.QueryRow(tsql).Scan(&id)
+
+	return int64(id), err
 }
 
 func CreateDetailRecord(db *sql.DB, jobId int, key string, value string) (int64, error) {
-	tsql := fmt.Sprintf("INSERT INTO dbo.JobDetail (JobId,[key],[value]) VALUES (N'%s',N'%s',N'%s');",
+	tsql := fmt.Sprintf("INSERT INTO dbo.JobDetails (JobId,[key],[value]) VALUES (%d,N'%s',N'%s');",
 		jobId, key, value)
-	result, err := db.Exec(tsql)
-	if err != nil {
-		fmt.Println("Error inserting new row: " + err.Error())
-		return -1, err
-	}
-	return result.LastInsertId()
+	var id int64
+	err := db.QueryRow(tsql).Scan(&id)
+
+	return id, err
 }
 
 func GetConnection() *sql.DB {
-	condb, errdb := sql.Open("mssql", "server=.;user id=sa;password=hN1234!@#$;port=1433;database=JobDb;")
+	condb, errdb := sql.Open("mssql", "server=.;user id=sa;password=123;port=1433;database=JobDb;")
 	if errdb != nil {
 		fmt.Println(" Error open db:", errdb.Error())
 	}

@@ -31,7 +31,7 @@ func main() {
 	var lastPage = document.Find(".paginator").Find("ul li").Eq(allLIs.Length() - 2)
 	pageCount, _ := ToLatinDigits(lastPage.Find("a").Text())
 	var nextPage int64 = 2
-	pageCount = 2
+	//pageCount = 2
 	for nextPage <= pageCount {
 
 		// Find and print image URLs
@@ -65,9 +65,9 @@ func main() {
 
 			CreateDetailRecord(condb, int(jobId), "Description", newDocument.Find(".s-jobDesc ").Text())
 
-			nextPage++
-			document = MakeHttpRequest(baseURL+jobPage+strings.Join(params[:], "&"), nextPage)
 		})
+		nextPage++
+		document = MakeHttpRequest(baseURL+jobPage+strings.Join(params[:], "&"), nextPage)
 	}
 
 	// Find and print image URLs
@@ -79,7 +79,6 @@ func main() {
 func MakeHttpRequest(pageAddress string, pageNumber int64) *goquery.Document {
 	// Make HTTP request
 
-	//req, _ := http.NewRequest("GET", "https://jobinja.ir/jobs?filters[job_categories][0]=وب،‌ برنامه‌نویسی و نرم‌افزار&filters[keywords][0]=&filters[locations][0]=تهران&sort_by=relevance_desc&page="+strconv.FormatInt(pageNumber, 10), nil)
 	if pageNumber > 0 {
 		pageAddress += strconv.FormatInt(pageNumber, 10)
 	}
