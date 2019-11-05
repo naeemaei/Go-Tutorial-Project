@@ -12,12 +12,15 @@ import (
 )
 
 func main() {
+	TestConnection()
+
 	var document = MakeHttpRequest(1)
 	// Get page count
 	var allLIs = document.Find(".paginator").Find("ul li")
 	var lastPage = document.Find(".paginator").Find("ul li").Eq(allLIs.Length() - 2)
 	pageCount, _ := ToLatinDigits(lastPage.Find("a").Text())
 	var nextPage int64 = 2
+	pageCount = 2
 	for nextPage <= pageCount {
 		nextPage++
 		document = MakeHttpRequest(nextPage)
@@ -25,15 +28,18 @@ func main() {
 		// Find and print image URLs
 		document.Find(".o-listView__itemInfo").Each(func(index int, element *goquery.Selection) {
 			//class, _ := element.Attr("class")
-			var company = element.Find(".c-icon--construction").Parent().Find("span").Text()
-			fmt.Println(company)
+			//var company = element.Find(".c-icon--construction").Parent().Find("span").Text()
+			//fmt.Println(company)
 
-			var place = element.Find(".c-icon--place").Parent().Find("span").Text()
-			fmt.Println(place)
+			//var place = element.Find(".c-icon--place").Parent().Find("span").Text()
+			//fmt.Println(place)
 
-			var jobTitle = element.Find(".c-jobListView__titleLink").Text()
-			fmt.Println(jobTitle)
+			//var jobTitle = element.Find(".c-jobListView__titleLink").Text()
+			var jobLink, _ = element.Find(".c-jobListView__titleLink").Attr("href")
+			fmt.Println(jobLink)
 			//fmt.Println(class, element.Text())
+			// condb := GetConnection()
+			// CreateRecord(condb, jobTitle, company, place)
 		})
 	}
 
@@ -46,6 +52,15 @@ func main() {
 func ToLatinDigits(persianNumber string) (i int64, err error) {
 	var LatinDigits = strings.ReplaceAll(persianNumber, "۰", "0")
 	LatinDigits = strings.ReplaceAll(LatinDigits, "۷", "7")
+	LatinDigits = strings.ReplaceAll(LatinDigits, "۱", "1")
+	LatinDigits = strings.ReplaceAll(LatinDigits, "۲", "2")
+	LatinDigits = strings.ReplaceAll(LatinDigits, "۳", "3")
+	LatinDigits = strings.ReplaceAll(LatinDigits, "۴", "4")
+	LatinDigits = strings.ReplaceAll(LatinDigits, "۵", "5")
+	LatinDigits = strings.ReplaceAll(LatinDigits, "۶", "6")
+	LatinDigits = strings.ReplaceAll(LatinDigits, "۸", "8")
+	LatinDigits = strings.ReplaceAll(LatinDigits, "۹", "9")
+
 	return strconv.ParseInt(LatinDigits, 10, 64)
 
 }
