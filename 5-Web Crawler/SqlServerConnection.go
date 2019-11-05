@@ -1,3 +1,4 @@
+//https://github.com/microsoft/sql-server-samples/blob/master/samples/tutorials/go/crud.go
 package main
 
 import (
